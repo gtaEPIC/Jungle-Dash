@@ -37,5 +37,5 @@ Now you can make a pull request with the new branch you made
 
 # Group 3 Members
 [Johnathan Hall](https://github.com/gtaEPIC)<br>
-Evgueni Antsyferov (Waiting for github username)<br>
+[Evgueni Antsyferov](https://github.com/DragonGenya)<br>
 [Jeremy Liao](https://github.com/jibbooo)
