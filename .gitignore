@@ -116,6 +116,8 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+.idea
+
 ### Unity ###
 # This .gitignore file should be placed at the root of your Unity project directory
 #
