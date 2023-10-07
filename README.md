@@ -1,6 +1,8 @@
 # Jungle Dash
 A COMP305 - 3 Group 3 project
 
+# [DEMO](https://gtaepic.github.io/Jungle-Dash/Builds)
+
 # Protection Rules
 You cannot push updates directly to the main branch.<br>
 Instead, create a new branch, make those changes, and then create a pull request.<br>
