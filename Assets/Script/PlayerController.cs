@@ -5,9 +5,10 @@ public class PlayerController : MonoBehaviour
 {
     private float horizontal;
     private bool isFacingRight = true;
-
+    public int Life = 2;
     private bool canDash = true;
     private bool isDashing;
+    public Animator playerAnim;
     [SerializeField] private float dashingPower = 24f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
@@ -30,16 +31,23 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            playerAnim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
+            playerAnim.SetTrigger("dash");
             StartCoroutine(Dash());
         }
 
         Flip();
+
+        if (Life<= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -83,4 +91,17 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
+
+    /* for projectile 
+    private void OnTriggerEnter2D(Collider2D OtherThing)
+    {
+        if(OtherThing.tag == "Enemy")
+        {
+            OtherThing.GetComponent<EnemyController>().LifeTotal--;
+            if (OtherThing.GetComponent<EnemyController>().LifeTotal == 0)
+            {
+                Destroy(OtherThing.gameObject);
+            }
+        }
+    }*/
 }
