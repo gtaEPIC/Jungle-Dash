@@ -135,7 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e437c5a04b020474993ee1120229483f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 1
+  Life: 3
+  damageCooldown: 2
   playerAnim: {fileID: 1234903395}
   dashingPower: 45
   dashingTime: 0.2
@@ -302,7 +303,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerAnim: {fileID: 1234903395}
-  attackRange: 0.25
+  attackRange: 1
   damage: 1
 --- !u!95 &1234903395
 Animator:

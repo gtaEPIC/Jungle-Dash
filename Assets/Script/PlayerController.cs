@@ -5,7 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     private float horizontal;
     private bool isFacingRight = true;
-    public int Life = 2;
+    [SerializeField] private int Life = 3;
+    [SerializeField] private float damageCooldown = 2f;
+    private bool canTakeDamage = true;
     private bool canDash = true;
     private bool isDashing;
     public Animator playerAnim;
@@ -44,10 +46,11 @@ public class PlayerController : MonoBehaviour
 
         Flip();
 
-        if (Life<= 0)
-        {
-            Destroy(gameObject);
-        }
+        // poor implementation
+        // if (Life<= 0)
+        // {
+        //     Destroy(gameObject);
+        // }
     }
 
     private void FixedUpdate()
@@ -90,6 +93,31 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+    
+    private IEnumerator ResetDamageCooldown()
+    {
+        yield return new WaitForSeconds(damageCooldown);
+        Debug.Log("Damage cooldown reset");
+        canTakeDamage = true;
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        if (!canTakeDamage)
+        {
+            return;
+        }
+        canTakeDamage = false;
+        Life -= damage;
+        Debug.Log("Damage taken: " + damage + " Life: " + Life);
+        if (Life <= 0)
+        {
+            // Reload the scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene(
+                UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        }
+        StartCoroutine(ResetDamageCooldown());
     }
 
     /* for projectile 
