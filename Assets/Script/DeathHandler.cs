@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class DeathHandler : MonoBehaviour
 {
+
+    [SerializeField] private AudioSource deathSoundEffect;
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -9,6 +11,7 @@ public class DeathHandler : MonoBehaviour
             // Reload the scene
             UnityEngine.SceneManagement.SceneManager.LoadScene(
                             UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            deathSoundEffect.Play();
         }
     }
 }
