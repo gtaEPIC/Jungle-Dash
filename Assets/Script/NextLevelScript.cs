@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NextLevelScript : MonoBehaviour
@@ -10,6 +11,13 @@ public class NextLevelScript : MonoBehaviour
     {
         finishSoundEffect = GetComponent<AudioSource>();
     }
+    
+    private IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(1f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,8 +26,10 @@ public class NextLevelScript : MonoBehaviour
 
             finishSoundEffect.Play();
             // Load the next scene
-            UnityEngine.SceneManagement.SceneManager.LoadScene(
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
+            GameObject player = other.gameObject;
+            player.GetComponent<PlayerController>().enabled = false;
+            player.GetComponent<Animator>().SetTrigger("Fade");
+            StartCoroutine(LoadNextScene());
         }
     }
 }
