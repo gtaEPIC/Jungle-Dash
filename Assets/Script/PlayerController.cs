@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TrailRenderer tr;
 
+    [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource attackSoundEffect;
+
     private void Update()
     {
         if (isDashing)
@@ -30,7 +33,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+
             
         }
 
@@ -70,6 +75,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        attackSoundEffect.Play();
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale;
