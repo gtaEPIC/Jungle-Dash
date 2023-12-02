@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TrailRenderer tr;
-    
+    [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource attackSoundEffect;
+
     private void Start()
     {
         Life = hearts.Length;
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
+            jumpSoundEffect.Play();
             playerAnim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             
@@ -90,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        attackSoundEffect.Play();
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale;
@@ -153,16 +157,4 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ResetDamageCooldown());
     }
 
-    /* for projectile 
-    private void OnTriggerEnter2D(Collider2D OtherThing)
-    {
-        if(OtherThing.tag == "Enemy")
-        {
-            OtherThing.GetComponent<EnemyController>().LifeTotal--;
-            if (OtherThing.GetComponent<EnemyController>().LifeTotal == 0)
-            {
-                Destroy(OtherThing.gameObject);
-            }
-        }
-    }*/
 }

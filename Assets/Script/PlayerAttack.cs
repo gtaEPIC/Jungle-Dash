@@ -11,8 +11,9 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask whatIsEnemies;
     public Animator playerAnim;
     public float attackRange;
-    public int damage = 1; 
+    public int damage = 1;
 
+    [SerializeField] private AudioSource attackSoundEffect;
     // Update is called once per frame
     void Update()
     {
@@ -20,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse1))
             {
+                attackSoundEffect.Play();
                 playerAnim.SetTrigger("attack");
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
